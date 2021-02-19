@@ -10,3 +10,6 @@ with open("file.csv") as csvfile:
     reader = csv.reader(csvfile)
     for fileLine in reader:
         print(fileLine)
+
+# Supongo que es un tema del dialecto del CSV, está delimitado por TAB en lugar de por comas",
+# no encuentro donde decirle que es un CSV de estilo excel
