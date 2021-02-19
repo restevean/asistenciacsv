@@ -6,7 +6,7 @@ con el resultado del proceso
 
 import csv
 
-with open("file.csv") as csvfile:
+with open("file.csv", newline='', encoding='utf-16') as csvfile:
     reader = csv.reader(csvfile)
     for fileLine in reader:
         print(fileLine)
