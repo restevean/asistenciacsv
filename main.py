@@ -10,3 +10,4 @@ with open("file.csv") as csvfile:
     reader = csv.reader(csvfile)
     for fileLine in reader:
         print(fileLine)
+
