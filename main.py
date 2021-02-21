@@ -5,8 +5,10 @@ con el resultado del proceso
 """
 
 import csv
+from datetime import datetime
 
-stop=0
+tiempoInicioReunion = 0 # Tiempo en que se inicia de la reunión
+tiempoIFinalReunion = 0 # Tiempo en que finaliza la reunión
 
 # Abrimos el archivo .csv
 with open("file.csv", encoding='utf-16') as csvfile:
@@ -14,16 +16,15 @@ with open("file.csv", encoding='utf-16') as csvfile:
     contenidoCsv = csv.reader(csvfile, dialect='excel-tab')
     # Cargamos el contenido leído en la lista
     listaDeAsistencia = list(contenidoCsv)
-    print('==============Lista==============')
+
+    tiempoInicioReunion = listaDeAsistencia
+
     # Imprimimos la lista
     for evento in listaDeAsistencia:
-        print(evento)
+        # print(evento, 'last element is ', type(evento[2]), evento[2])
+        # Convertimos el último elemento en datetime
+        evento[2] = datetime.strptime(evento[2], '%d/%m/%Y %H:%M:%S')
+        # no entiendo por qué no funciona el formato '%-d/%-m%Y %H:%M:%S'
+        # print(evento, 'last element is ', type(evento[2]), evento[2])
 
 print("Done ;)")
-
-# print("==============Segundo print==============")
-# with open("file.csv", encoding='utf-16') as csvfile:
-    # lo leemos con csv.DictReader()
-    #     dict_reader = csv.DictReader(csvfile, dialect='excel-tab')
-    # for element in dict_reader:
-    #   print(element['Nombre completo'], element['Acción del usuario'], element['Marca de tiempo'])
