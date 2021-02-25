@@ -8,57 +8,73 @@ import csv
 from datetime import datetime
 
 def parse(contenidoCsvParam):
-    listaNueva = [['Nombre completo', 'Acción del usuario', 'Marca de tiempo']]
-    inicioReunion = 0
-    finalReunion = 'Final'
 
-    # Omitimos el encabezado del archivo .csv
-    next(contenidoCsvParam)
+    inicioreunion = 'Inicio'
+    finalreuniont = 'Final'
 
+    # Procesamos el encabezado de archivo.csv
+    cabecera = next(contenidoCsvParam)
     # Cargamos el contenido leído en la lista
     listaDeAsistencia = list(contenidoCsvParam)
+    # Asignamos la cabecera a la primera linea de la nueva lista
+    listaNueva = [cabecera]
+    listaNueva[0].append('')
+    # Añadimos la primera linea de datos
+    listaDeAsistencia[0][2] = datetime.strptime(listaDeAsistencia[0][2], '%d/%m/%Y %H:%M:%S')
+    listaNueva.append(listaDeAsistencia[0])
+    listaNueva[1].append('')
+    inicioreunion = listaNueva[1][2]
+    finalreunion = listaNueva[1][2]
 
     print('Parsing data...')
 
     # Procesamos la lista
+    # 1ª vuelta
     for linea in listaDeAsistencia:
 
         # Convertimos el último elemento en datetime
-        linea[2] = datetime.strptime(linea[2], '%d/%m/%Y %H:%M:%S')
+        if type(linea[2]) == str:
+            linea[2] = datetime.strptime(linea[2], '%d/%m/%Y %H:%M:%S')
 
-        # Si no hay inicio de reunión, asignamos el tiempo de inicio de la reunión
-        if inicioReunion == 0:
-            inicioReunion = linea[2]
-
-        # Tomamos la cabecera
-        cabeceraArchivo = listaDeAsistencia[0]
         # Asignamos el nombre
         nombreAsistente = linea[0]
         # Asignamos la acción
         accion = linea[1]
-        # asignamos el tiempo de inicio de la reunión
-        tiempoInicioReunion = linea[2]
 
         # Si el nombre anterior es distinto
         if nombreAsistente != listaNueva[len(listaNueva) - 1][0]:
             # Si la acción == Se unió antes
             if linea[1] == 'Se unió antes':
                 linea[1] = 'Unido'
-                linea[2] = tiempoInicioReunion
-                listaNueva.append([linea[0], "Unido", TI, ''])
+                linea[2] = inicioreunion
+                listaNueva.append([linea[0], "Unido", inicioreunion, ''])
             # Si la acción == 'Unido'
             elif linea[1] == 'Unido':
-                if listaNueva[len(listaNueva) - 1][1] == 'Unido':
-                    listaNueva.append(
-                        [listaNueva[len(listaNueva) - 1][0], 'Abandonó', listaNueva[len(listaNueva) - 1][2], 'TF'])
-                listaNueva.append([linea[0], linea[1], linea[2], ''])
+                if listaNueva[len(listaNueva) - 1][1] == 'Unido' or listaNueva[len(listaNueva) - 1][1] == 'Acción del usuario':
+                    listaNueva.append([listaNueva[len(listaNueva) - 1][0], 'Abandonó', finalreuniont, ''])
+                    listaNueva.append([linea[0], linea[1], linea[2], ''])
             # Si la acción == 'Abandonó'
             elif linea[1] == 'Abandonó':
-                listaNueva.append([linea[0], 'Unido', TI, ''])
+                listaNueva.append([linea[0], 'Unido', inicioreunion, ''])
                 listaNueva.append([linea[0], 'Abandonó', linea[2], ''])
-        if nombreAsistente == listaNueva[len(listaNueva) - 1]:
+        if nombreAsistente == listaNueva[len(listaNueva) - 1][0]:
             if linea[1] == 'Abandonó':
-                listaNueva.append([linea[0], linea[1], linea[2], ''])
+                if listaNueva[len(listaNueva) - 1][1] == 'Abandonó':
+                    listaNueva[len(listaNueva) - 1][2] = linea[2]
+                else:
+                    listaNueva.append([linea[0], linea[1], linea[2], ''])
+
+        if listaNueva[len(listaNueva) - 1][2] > finalreunion:
+            finalreunion = listaNueva[len(listaNueva) - 1][2]
+
+    # 2ª vuelta
+    for lineaN in listaNueva:
+        # Si no tiene tiempo de inicio le asignamos el inicio de la reunión
+        if lineaN[2] == 'Inicio':
+            lineaN[2] = inicioreunion
+        # Si no tiene tiempo de fin, le asignamos el final de la reunión
+        elif lineaN[2] == 'Final':
+            lineaN[2] = finalreunion
 
     return listaNueva
 
