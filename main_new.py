@@ -75,12 +75,14 @@ def parse(contenidoCsvParam):
         # Si no tiene tiempo de fin, le asignamos el final de la reunión
         elif lineaN[2] == 'Final':
             lineaN[2] = finalreunion
+        # Calculamos el tiempo efectivo desde que entró hasta que salió
+
 
     return listaNueva
 
 # Abrimos el archivo.csv
 print('Reading csv file...')
-with open("fixtures/file0.csv", encoding='utf-16') as csvfile:
+with open("fixtures/2021-02-25.csv", encoding='utf-16') as csvfile:
     # Lo leemos con csv.Reader()
     contenidoCsv = csv.reader(csvfile, dialect='excel-tab')
 
