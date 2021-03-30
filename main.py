@@ -3,7 +3,7 @@ Esta es una aplicación para abrir un archivo CSV generado por Teams con la list
 de asistentes de una reunión, procesarlos y producir un archivo CSV de salida
 con el resultado del proceso
 """
-# TODO fecha y hora de creación del archivo de lasida debe ser entre 1 y 10 minutos después del final de la runión
+# TODO fecha y hora de creación del archivo debe ser entre 1 y 10 minutos después del final de la runión.
 
 
 import csv
@@ -25,7 +25,9 @@ def parse(contenido_csv_param):
     listanueva[0].append('T. Efectivo')
     # Append first row if list contains data
     if len(listadeasistencia) == 0:
-        print('Documento vacío')
+        print('***********************')
+        print('*** Documento vacío ***')
+        print('***********************')
     else:
         listadeasistencia[0][2] = datetime.strptime(listadeasistencia[0][2], '%d/%m/%Y %H:%M:%S')
         listanueva.append(listadeasistencia[0])
@@ -109,11 +111,20 @@ def parse(contenido_csv_param):
 
 # Abrimos el archivo.csv
 file = 'file'
+print('Copyrigt© 2021 Rafael Esteve Antonino')
+print('Todos los derechos reservados')
+
 while True:
-    print('Copyrigt 2021© Rafael Esteve Antonino')
-    file = input('Introduce el nombre del archivo: ')
+    file = input("Introduce el nombre del archivo ('q' para salir): ")
     if file == 'Q' or file == 'q':
         break
+    # controlamos la extensión del nombre de archivo, puede no llevarla o llevarla mal escrita
+    if file[len(file)-4:len(file)-3:1] == '.':
+        if file[len(file)-3:len(file):1] != 'csv':
+            # file[len(file) - 3:len(file):1] = 'csv'
+            file = file[0:len(file)-3:1] + 'csv'
+    else:
+        file = file + '.csv'
 
     try:
         print('Leyendo lista...')
@@ -135,4 +146,6 @@ while True:
                 contenidoNuevo.writerow(evento)
         print("Hecho ;)")
     except FileNotFoundError:
-        print('No se encuentra el archivo')
+        print('**********************************')
+        print('*** No se encuentra el archivo ***')
+        print('**********************************')
