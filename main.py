@@ -3,7 +3,6 @@ Esta es una aplicación para abrir un archivo CSV generado por Teams con la list
 de asistentes de una reunión, procesarlos y producir un archivo CSV de salida
 con el resultado del proceso
 """
-# TODO fecha y hora de creación del archivo debe ser entre 1 y 10 minutos después del final de la runión.
 
 
 import csv
@@ -111,7 +110,7 @@ def parse(contenido_csv_param):
 
 # Abrimos el archivo.csv
 file = 'file'
-print('Copyrigt© 2021 Rafael Esteve Antonino')
+print('Copyright© 2021 Rafael Esteve Antonino')
 print('Todos los derechos reservados')
 
 while True:
@@ -135,9 +134,10 @@ while True:
 
         # Escribimos listaNueva en un archivo .csv delimitado por tabulaciones
         # with open("output.csv", 'w', encoding='utf-16') as csvFileOutput:
-        with open(f"P {file}", 'w', encoding='utf-16') as csvFileOutput:
+        with open(f"P {file}", 'w', newline = '', encoding='utf-16') as csvFileOutput:
 
             # Lo escribimos con csv.Writter()
+            # contenidoNuevo = csv.writer(csvFileOutput)
             contenidoNuevo = csv.writer(csvFileOutput, dialect='excel-tab')
 
             print(f'Escribiendo nueva lista: P {file}')
