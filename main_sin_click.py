@@ -4,19 +4,16 @@ de asistentes de una reunión, procesarlos y producir un archivo CSV de salida
 con el resultado del proceso
 """
 
-
 import csv
 from csv import reader as readcsv
-import click
 from parsers import parse_row, ServiceRecord
 from errors import HeaderException
 
-@click.command()
-def asistencia():
-    """Convierte las listas de asistencia antiguas de Teams a un formato con el tiempo efectivo de cada sistente ya calculado"""
+
+def main():
     file: str = "file"
-    click.echo("Copyrigt© 2021 Rafael Esteve Antonino")
-    click.echo("Todos los derechos reservados")
+    print('Copyrigth© 2021 Rafael Esteve Antonino')
+    print('Todos los derechos reservados')
 
     while True:
         file = input("Introduce el nombre del archivo ('q' para salir): ")
@@ -31,7 +28,7 @@ def asistencia():
             file = file + ".csv"
 
         try:
-            click.echo("Leyendo lista...")
+            print("Leyendo lista...")
             parsed_list = []
             counter = 0
             with open(file, encoding="utf-16") as csvfile:
@@ -62,13 +59,12 @@ def asistencia():
                     ]
                     writer.writerow(data)
 
-            click.echo("Hecho ;)")
-
+            print("Hecho ;)")
         except FileNotFoundError:
-            click.echo("**********************************")
-            click.echo("*** No se encuentra el archivo ***")
-            click.echo("**********************************")
+            print("**********************************")
+            print("*** No se encuentra el archivo ***")
+            print("**********************************")
 
 
 if __name__ == "__main__":
-    asistencia()
+    main()
