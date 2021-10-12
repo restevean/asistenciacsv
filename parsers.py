@@ -4,20 +4,7 @@ from typing import List
 from errors import HeaderException
 
 
-# def parse_line(line: str, num: int) -> Record:
-#     for action in Action:
-#         if action.value in line:
-#             fields = line.split(action.value)
-#             return Record(
-#                 line=num,
-#                 name=fields[0].strip(),
-#                 action=action,
-#                 update_at=datetime.strptime(fields[1].strip(), '%d/%m/%Y %H:%M:%S')
-#             )
-
-
 def parse_row(row: list, num: int) -> Record:
-
     if row[1] not in [elem.value for elem in Action]:
         raise HeaderException
     new_record = Record(
@@ -25,8 +12,8 @@ def parse_row(row: list, num: int) -> Record:
         name=row[0],
         action=Action(row[1]),
         update_at=datetime.strptime(row[2], '%d/%m/%Y %H:%M:%S')
+        # update_at=datetime.strptime(row[2], '%m/%d/%Y, %H:%M:%S %p')
     )
-
     return new_record
 
 
@@ -42,7 +29,7 @@ class ServiceRecord:
         return starting_time
 
     def _meeting_end(self) -> datetime:
-        end_time = datetime.strptime("01/01/1970 00:00:00", '%d/%m/%Y %H:%M:%S')
+        end_time = datetime.strptime("01/01/1970 00:00:00", '%m/%d/%Y %H:%M:%S')
         for elem in reversed(self.records):
             if elem.action == Action.ABANDONO:
                 end_time = elem.update_at if elem.update_at > end_time else end_time
@@ -53,7 +40,6 @@ class ServiceRecord:
         # for elem in self.records:
         #     conjunto.add(elem.name)
         # return list(conjunto)
-
         return list(set(elem.name for elem in self.records))
 
     def get_joined_time(self, name: str) -> datetime:

@@ -26,14 +26,12 @@ class TestParser:
             parse_row(row, 1)
 
     def test_get_names(self, many_dumb_recrods):
-
         servicio = ServiceRecord(many_dumb_recrods)
         nombres = servicio.get_names()
         assert len(nombres) == 7
         assert "Nombre 7" not in nombres
 
     def test_leaving_and_joining_time(self, many_dumb_recrods):
-
         servicio = ServiceRecord(many_dumb_recrods)
         name = servicio.get_names()[0]
         assert servicio.get_joined_time(name) <= servicio.get_leaving_time(name)

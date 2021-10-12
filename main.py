@@ -4,17 +4,18 @@ de asistentes de una reunión, procesarlos y producir un archivo CSV de salida
 con el resultado del proceso
 """
 
-
 import csv
 from csv import reader as readcsv
 import click
 from parsers import parse_row, ServiceRecord
 from errors import HeaderException
 
+
 @click.command()
 def asistencia():
-    """Convierte las listas de asistencia antiguas de Teams a un formato con el tiempo efectivo de cada sistente ya calculado"""
-    file: str = "file"
+    """Convierte las listas de asistencia antiguas de Teams a un formato con el tiempo efectivo de cada sistente ya
+    calculado """
+    # file: str = "file"
     click.echo("Copyrigt© 2021 Rafael Esteve Antonino")
     click.echo("Todos los derechos reservados")
 
