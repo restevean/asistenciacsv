@@ -1,6 +1,5 @@
 from datetime import datetime
 
-# La fecha en formato US, la coma y la hora en formato 12h
 date_string = "9/28/2021, 8:59:32 PM"
 
 print(f'Lafecha en formato incorrecto es: {date_string}')

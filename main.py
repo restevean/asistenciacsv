@@ -5,7 +5,6 @@ con el resultado del proceso
 """
 
 import csv
-from csv import reader as readcsv
 import click
 from parsers import parse_row, ServiceRecord
 from errors import HeaderException
@@ -13,8 +12,6 @@ from errors import HeaderException
 
 @click.command()
 def asistencia():
-    """Convierte las listas de asistencia antiguas de Teams a un formato con el tiempo efectivo de cada sistente ya
-    calculado """
     # file: str = "file"
     click.echo("Copyrigt© 2021 Rafael Esteve Antonino")
     click.echo("Todos los derechos reservados")
@@ -37,7 +34,7 @@ def asistencia():
             counter = 0
             with open(file, encoding="utf-16") as csvfile:
                 # Lo leemos con csv.Reader()
-                contenidocsv: readcsv = csv.reader(csvfile, dialect="excel-tab")
+                contenidocsv = csv.reader(csvfile, dialect="excel-tab")
 
                 for linea in contenidocsv:
                     try:
