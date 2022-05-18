@@ -7,7 +7,7 @@ class TestEntities:
     def test_can_instantiate(self):
         record = Record(
             line=1,
-            name="Pepe Perez",
+            name="John Doe",
             action=Action.ABANDONO,
             update_at=datetime.strptime("23/2/2021 8:30:03", '%d/%m/%Y %H:%M:%S')
         )

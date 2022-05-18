@@ -12,7 +12,6 @@ def parse_row(row: list, num: int) -> Record:
         name=row[0],
         action=Action(row[1]),
         update_at=datetime.strptime(row[2], '%d/%m/%Y %H:%M:%S')
-        # update_at=datetime.strptime(row[2], )
     )
     return new_record
 
