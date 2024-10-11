@@ -14,3 +14,4 @@ print("type of date_object =", type(date_object))
 # La escribimos en el formato adecuado
 str_fecha = date_object.strftime("%d/%m/%Y %H:%M:%S")
 print(str_fecha)
+

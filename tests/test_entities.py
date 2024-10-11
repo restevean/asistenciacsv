@@ -4,6 +4,11 @@ import pytest
 
 
 class TestEntities:
+    def test_actions(self):
+        assert Action.UNIDO.value == 'Unido'
+        assert Action.ANTES.value == 'Se unió antes'
+        assert Action.ABANDONO.value == 'Abandonó'
+
     def test_can_instantiate(self):
         record = Record(
             line=1,
@@ -20,3 +25,4 @@ class TestEntities:
                 action=Action.ANTES,
                 update_at=datetime.strptime("30/2/2021 8:30:03", '%d/%m/%Y %H:%M:%S')
             )
+

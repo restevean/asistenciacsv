@@ -21,14 +21,14 @@ class ServiceRecord:
         self.records = list_of_records
 
     def _meeting_start(self) -> datetime:
-        starting_time = datetime.utcnow()
+        starting_time = datetime.strptime("01/01/1970 00:00:00", '%m/%d/%Y %H:%M:%S')
         for elem in self.records:
             if elem.action == Action.UNIDO:
                 starting_time = elem.update_at if elem.update_at < starting_time else starting_time
         return starting_time
 
     def _meeting_end(self) -> datetime:
-        end_time = datetime.strptime("01/01/1970 00:00:00", '%m/%d/%Y %H:%M:%S')
+        end_time =datetime.utcnow()
         for elem in reversed(self.records):
             if elem.action == Action.ABANDONO:
                 end_time = elem.update_at if elem.update_at > end_time else end_time

@@ -1,10 +1,10 @@
 import pytest
 from entities import Action, Record
 from datetime import datetime
-from time import sleep
+
 
 @pytest.fixture
-def many_dumb_recrods():
+def many_dumb_records():
     records = []
     enums = [elem.value for elem in Action]
     for elem in range(30):

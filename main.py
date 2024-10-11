@@ -13,7 +13,7 @@ from errors import HeaderException
 @click.command()
 def asistencia():
     # file: str = "file"
-    click.echo("Copyrigt© 2021 Rafael Esteve Antonino")
+    click.echo("Copyright© 2021 Rafael Esteve Antonino")
     click.echo("Todos los derechos reservados")
 
     while True:
