@@ -1,6 +1,14 @@
 .idea/
 .DS_Store
+__pycache__/parsers.cpython-38.pyc
 conceptos/
 fixtures/
 *.csv
+click/
+venv/
+__pycache__/
+tests/__pycache__/
+*.pyc
+
+
 
